@@ -2,8 +2,12 @@ import subprocess
 from subprocess import call
 import os
 
-r=['13641','13642','13643','13644','13645','13646','13647','13648','13649']
+r = ['0','1','2','3','4','5','6','7','8','9']
+
 #os.environ['ran'] = ' '.join(r)
 for i in r:
-	os.environ['ran']=''.join(i)
+	#num = i + '000'
+	num = f"1318{i}"
+
+	os.environ['ran']=''.join(num)
 	call("./test.sh")
