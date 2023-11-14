@@ -1,0 +1,3 @@
+simple demo how iframe vulnerability can be used inreal life scenarios. 
+iframe.html takes the user input and pass it to the flask server. then python request the otp code
+then user will apply the otp and now attacker have all three username, password and otp
