@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Website with Google Map</title>
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+<h1>My Location</h1>
+<div id="map"></div>
+
+<script
+
+  src="https://maps.googleapis.com/maps/api/js?key=keyvalue&callback=initMap"
+  async defer>
+</script>
+
+<script>
+  function initMap() {
+    const myLocation = { lat: 37.7749, lng: -122.4194 }; // Example: San Francisco
+
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 12,
+      center: myLocation,
+    });
+
+    const marker = new google.maps.Marker({
+      position: myLocation,
+      map: map,
+    });
+  }
+</script>
+
+</body>
+</html>
